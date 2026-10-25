@@ -1,0 +1,271 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R 9 0 R 11 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 1068 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+13 TL
+/F1 15 Tf
+0 -18 Td
+21 TL
+(Operating Systems Lab 8 - Memory Management in xv6) Tj
+T*
+(Student: Tejeshwar Bhagat | Roll number: 2401MC23) Tj
+T*
+(Base: MIT xv6-public commit eeb7b415dbcb12cc362d0783e41c3d1f44066b17) Tj
+T*
+() Tj
+T*
+(Q1 - Virtual to physical address translation) Tj
+T*
+() Tj
+T*
+(xv6 uses two-level paging. va2pa walks the calling process page table, checks that the PTE) Tj
+T*
+(is present and user-accessible, then combines the frame address with the 12-bit page offset.) Tj
+T*
+(It returns -1 for absent pages, supervisor-only pages, and addresses in the kernel range.) Tj
+T*
+(The kernel prints the page-directory index, page-table index, offset, and P/W/U flags.) Tj
+T*
+() Tj
+T*
+(vatest requests translations for a global, local, and malloc-backed variable. It checks the) Tj
+T*
+(unmapped address 0x7fffffff and forks. Parent and child keep the same virtual address for) Tj
+T*
+(the global variable; copyuvm creates separate physical frames. Expected: equal VAs and) Tj
+T*
+(different PAs.) Tj
+T*
+() Tj
+T*
+(Run: vatest) Tj
+T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 1744 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+13 TL
+(Q2 - Physical memory statistics) Tj
+T*
+() Tj
+T*
+(kalloc.c tracks the number of pages on the physical free list. kfree increments the count) Tj
+T*
+(and kalloc decrements it while kmem.lock is held during normal multiprocessor operation.) Tj
+T*
+(The bootstrap phase keeps xv6's lock-free initialization. ktotalpages reports the frames) Tj
+T*
+(managed by this allocator, excluding reserved memory and the kernel image.) Tj
+T*
+() Tj
+T*
+(The shared meminfo structure contains total_pages, free_pages, user_pages, and) Tj
+T*
+(page_table_pages. user_pages is sz / PGSIZE. page_table_pages counts the process page) Tj
+T*
+(directory and each present page-table page, including kernel mappings.) Tj
+T*
+() Tj
+T*
+(memtest prints statistics before allocation, after it grows and touches two heap pages,) Tj
+T*
+(inside the forked child, and after the child is reaped. Expected: free pages decrease after) Tj
+T*
+(allocation and fork, then return to the post-allocation level after wait reclaims the child.) Tj
+T*
+(The test prints exact values during a QEMU run; no measured values are claimed here.) Tj
+T*
+() Tj
+T*
+(Runtime values to transcribe from memtest:) Tj
+T*
+(  Before allocation:       free_pages = \(capture from run\)) Tj
+T*
+(  After touching 2 pages:  free_pages = \(capture from run\)) Tj
+T*
+(  Child after fork:        free_pages = \(capture from run\)) Tj
+T*
+(  After wait:              free_pages = \(capture from run\)) Tj
+T*
+() Tj
+T*
+(A free-list counter must cover both allocator initialization ranges and remain consistent) Tj
+T*
+(when child pages are released. Updating it at list insertion and removal keeps the count) Tj
+T*
+(aligned with the allocator's actual state.) Tj
+T*
+() Tj
+T*
+(Run: memtest) Tj
+T*
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 1366 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+13 TL
+(Q3 - Dumping the process page table) Tj
+T*
+() Tj
+T*
+(vmprint walks the process page directory. For each present user PDE it prints the page-table) Tj
+T*
+(physical address and flags. It then prints each present PTE with its virtual page, physical) Tj
+T*
+(frame, and P/W/U flags. Kernel mappings at or above KERNBASE are omitted from the detailed) Tj
+T*
+(dump and included in a one-line count.) Tj
+T*
+() Tj
+T*
+(exec records the stack guard address while building a process image. vmprinttest prints the) Tj
+T*
+(expected guard VA so it can be found in the dump: the PTE is present \(P=1\) and inaccessible) Tj
+T*
+(to user mode \(U=0\). At startup, user-accessible pages should equal sz / PGSIZE minus the) Tj
+T*
+(guard page.) Tj
+T*
+() Tj
+T*
+(vmprinttest captures the initial page table, reserves eight pages, touches one byte in each,) Tj
+T*
+(then prints again. It shrinks the heap by one page and prints a final dump. The touched) Tj
+T*
+(pages) Tj
+T*
+(should appear after growth and the final page should disappear after shrink. Empty page-) Tj
+T*
+(table) Tj
+T*
+(pages remain allocated until the address space is freed, matching xv6 deallocuvm behavior.) Tj
+T*
+() Tj
+T*
+(Because Q4 changes sbrk to lazy allocation, this test touches each reserved page before) Tj
+T*
+(checking the expanded dump.) Tj
+T*
+() Tj
+T*
+(Run: vmprinttest) Tj
+T*
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 1652 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+13 TL
+(Q4 - Lazy heap allocation) Tj
+T*
+() Tj
+T*
+(Positive sbrk extends proc->sz without allocating frames. Each process tracks heapbase and) Tj
+T*
+(stackguard. A page fault is resolved only for a missing page in the heap, below sz and above) Tj
+T*
+(the guard. The kernel allocates a zero-filled frame and maps it writable and user-) Tj
+T*
+(accessible.) Tj
+T*
+(Invalid user addresses and allocation failures terminate the faulting process.) Tj
+T*
+() Tj
+T*
+(copyuvm skips absent PTEs so fork works with untouched heap holes. deallocuvm skips absent) Tj
+T*
+(leaves and frees only allocated frames. Shrinking below the original heap boundary is) Tj
+T*
+(rejected to protect the stack and program image. Syscall argument validation materializes) Tj
+T*
+(legal lazy pages before kernel I/O accesses user buffers, covering untouched read/write) Tj
+T*
+(buffers.) Tj
+T*
+() Tj
+T*
+(lazytest reserves 32 MB, prints free-page statistics before and after reservation, touches) Tj
+T*
+(four distant pages, forks across remaining holes, touches another missing page in the child,) Tj
+T*
+(passes an untouched page to write, and has a child access an address beyond sz. Expected:) Tj
+T*
+(no frame use for reservation alone; frames allocated on touch; fork survives sparse pages;) Tj
+T*
+(and only the invalid child is terminated.) Tj
+T*
+() Tj
+T*
+(Verification record:) Tj
+T*
+(  Changed C files: 32-bit GCC syntax check passed.) Tj
+T*
+(  Full xv6 build / QEMU run: not run; make, i686-elf tools, and QEMU are unavailable here.) Tj
+T*
+(  Measured memory values and terminal screenshots: pending a real QEMU run.) Tj
+T*
+() Tj
+T*
+(Run: lazytest) Tj
+T*
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 10 0 R >>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000140 00000 n 
+0000000210 00000 n 
+0000001330 00000 n 
+0000001456 00000 n 
+0000003252 00000 n 
+0000003378 00000 n 
+0000004796 00000 n 
+0000004922 00000 n 
+0000006627 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R >>
+startxref
+6755
+%%EOF

@@ -1,0 +1,15 @@
+﻿Lab 8 submission preparation log
+
+Source check:
+  Command: gcc -m32 -fsyntax-only -fno-builtin -Wall -Werror -Wno-unused-parameter -I. vm.c kalloc.c proc.c exec.c sysproc.c syscall.c trap.c vatest.c memtest.c vmprinttest.c lazytest.c
+  Result: passed (exit code 0)
+
+Kernel build:
+  Not run. GNU make and the i686-elf toolchain are unavailable in this environment.
+
+QEMU test programs:
+  Not run. QEMU is unavailable in this environment.
+  No xv6 runtime output or memory measurements are claimed.
+
+Screenshots:
+  Not captured. See screenshots/README.md for the requested filenames.
