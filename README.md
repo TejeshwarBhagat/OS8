@@ -3,8 +3,6 @@
 **Student:** Tejeshwar Bhagat  
 **Roll number:** 2401MC23
 
-This submission follows the Lab 7 folder layout. It contains the kernel patch, the user test sources, a consolidated report, runtime log, and a folder for terminal screenshots.
-
 ## Folder contents
 
 - `diffs/lab8_complete.diff` - complete patch for Questions 1-4, including the user programs in the xv6 source root.
